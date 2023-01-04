@@ -1,6 +1,6 @@
 import { Box, Container, Grid, Typography } from "@mui/material";
 import ImageSlider from "components/ImageSlider";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import CoursesCategory from "sections/Home/CoursesCategory";
 
@@ -23,7 +23,27 @@ const Home = () => {
       `https://test.plan-b-eg.com/api/Courses/GetAllCourses?lane?lang=${params.lang}&limit=${params.limit}&page=${params.page}`
     ).then((res) => res.json());
 
+  const fetchToken = () =>
+    fetch(`https://test.plan-b-eg.com/api/Account/authenticate/`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: "basem.ashraf@smartapp-eg.com",
+        password: "123@@@",
+      }),
+    }).then((res) => res.json());
+
   const { isLoading, error, data } = useQuery(["courses", params], () => fetchCourses(params));
+  const { isLoading: tokenIsLoading, error: tokenError, data: token } = useQuery("userToken", () => fetchToken());
+
+  useEffect(() => {
+    if (token) {
+      localStorage.setItem("token", token?.token.token);
+    }
+  }, [tokenIsLoading]);
 
   return (
     <Box sx={{ minHeight: "calc(100vh - 400px)" }}>

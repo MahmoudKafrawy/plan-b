@@ -1,23 +1,37 @@
 import { Button, Container, Grid, Rating, Stack, Typography } from "@mui/material";
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useQuery } from "react-query";
+import { useLocation, useParams } from "react-router-dom";
 import { toPrice } from "utils/toPrice";
 
 const CourseDetails = () => {
   const location = useLocation();
+  const { id } = useParams();
+  const token = localStorage.getItem("token");
 
-  const course = location.state?.data;
+  // const course = location.state?.data;
 
-  console.log(course);
+  // console.log(course);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
-  // const fetchCourses = (id) =>
-  //   fetch(`https://test.plan-b-eg.com/api/Courses/GetCourseDetails?courseId=${id}`).then((res) => res.json());
+  const fetchCourses = (id) =>
+    fetch(`https://test.plan-b-eg.com/api/Courses/GetCourseDetails?courseId=${id}`, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    }).then((res) => res.json());
 
-  // const { isLoading, error, data } = useQuery(["courses", id], () => fetchCourses(id));
-  // if (isLoading) return <>Lodaing ...</>;
+  const { isLoading, error, data: course } = useQuery(["courses", id], () => fetchCourses(id));
+  if (isLoading)
+    return (
+      <Grid container sx={{ minHeight: "calc(100vh - 200px)" }}>
+        <>Lodaing ...</>
+      </Grid>
+    );
 
   return (
     <Container maxWidth="lg">
