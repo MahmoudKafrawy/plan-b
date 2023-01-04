@@ -4,6 +4,7 @@ import CustomIconButton from "components/common/CustomIconButton";
 import CutsomButton from "components/common/CutsomButton";
 import ControlledTextField from "components/Controlled/ControlledTextField";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const NavBar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -20,7 +21,9 @@ const NavBar: React.FC = () => {
     >
       <Grid container alignItems="center" justifyContent="space-between" sx={{ height: "100%" }}>
         <Grid item xs={2}>
-          <img src="/images/logo.png" height={"42px"} />
+          <Link to={"/"}>
+            <img src="/images/logo.png" height={"42px"} />
+          </Link>
         </Grid>
         <Grid item xs={6} display={{ xs: "none", md: "unset" }}>
           <Stack direction="row" alignItems="center" spacing={2}>
