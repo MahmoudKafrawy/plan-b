@@ -1,4 +1,5 @@
-import { Box, Grid, Stack, Typography } from "@mui/material";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { Box, Grid, IconButton, Stack, Typography } from "@mui/material";
 import CustomIconButton from "components/common/CustomIconButton";
 import CutsomButton from "components/common/CutsomButton";
 import ControlledTextField from "components/Controlled/ControlledTextField";
@@ -21,19 +22,22 @@ const NavBar: React.FC = () => {
         <Grid item xs={2}>
           <img src="/images/logo.png" height={"42px"} />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={6} display={{ xs: "none", md: "unset" }}>
           <Stack direction="row" alignItems="center" spacing={2}>
             <Typography>Categories</Typography>
             <ControlledTextField state={searchQuery} setState={setSearchQuery} placeholder={"serach"} />
           </Stack>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={4} display={{ xs: "none", md: "unset" }}>
           <Stack direction="row" justifyContent="flex-end" spacing={2}>
             <CutsomButton title="Log in" />
             <CutsomButton title="Sign up" variant="contained" sx={{ boxShadow: "0 0 0 0 " }} />
             <CustomIconButton />
           </Stack>
         </Grid>
+        <IconButton sx={{ display: { md: "none" } }}>
+          <MoreVertIcon />
+        </IconButton>
       </Grid>
     </Box>
   );

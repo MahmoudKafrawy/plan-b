@@ -25,14 +25,12 @@ const ImageSlider = () => {
       pagination={{
         clickable: true,
       }}
-      onSlideChange={() => console.log("slide change")}
-      onSwiper={(swiper) => console.log(swiper)}
       modules={[Pagination, Autoplay, Navigation]}
     >
       {slides.map((slide) => (
         <SwiperSlide key={slide}>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <img src={`/images/${slide}`} style={{ objectFit: "cover", width: "100vw", maxHeight: "405px" }} />
+            <img src={`/images/${slide}`} style={{ objectFit: "cover", width: "100vw", maxHeight: "350px" }} />
           </Box>
         </SwiperSlide>
       ))}
